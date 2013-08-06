@@ -34,6 +34,26 @@ module Places
       mashup(self.class.get("/search/json", :query => options.merge(self.default_options)))
     end
     
+    def textsearch(options={})
+      sensor = options.delete(:sensor) || false
+      types  = options.delete(:types)
+      query  = options.delete(:query)
+
+      options = {
+        :radius => radius,
+        :sensor => sensor,
+        :types => types,
+        :query => query
+      }
+      
+      if types
+        types = (types.is_a?(Array) ? types.join('|') : types)
+        options.merge!(:types => types)
+      end
+        
+      mashup(self.class.get("/search/textsearch", :query => options.merge(self.default_options)))
+    end
+    
     def details(options={})    
       sensor = options.delete(:sensor) || false  
       reference = options.delete(:reference)      

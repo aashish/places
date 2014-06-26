@@ -5,10 +5,10 @@ require 'json'
 
 directory = File.expand_path(File.dirname(__FILE__))
 
-Hash.send :include, Hashie::HashExtensions
+Hash.send :include, Hashie::Extensions
 
 module Places
-  
+
   def self.configure
     yield self
     true
@@ -17,7 +17,7 @@ module Places
   class << self
     attr_accessor :api_key
   end
-  
+
 end
 
 require File.join(directory, 'places', 'client')
